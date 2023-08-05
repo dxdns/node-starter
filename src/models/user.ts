@@ -8,11 +8,11 @@ export default class UserModel {
             id: 2,
             name: "test2"
         },
-    ];
+    ]
 
-    get = async () => this.users;
+    get = async () => this.users
 
     getById = async (id: number) => {
-        return this.users.find((v) => v.id === id);
+        return this.users.find((v) => v.id === id)
     }
 }

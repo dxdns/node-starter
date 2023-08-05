@@ -1,9 +1,9 @@
-import { Router } from "express";
-import HomeController from "../controllers/home";
+import { Router } from "express"
+import HomeController from "../controllers/home"
 
-const HomeGroup = Router();
-const homeController = new HomeController();
+const HomeGroup = Router()
+const homeController = new HomeController()
 
-HomeGroup.get("/", homeController.index);
+HomeGroup.get("/", homeController.index)
 
-export default HomeGroup;
+export default HomeGroup
