@@ -10,11 +10,17 @@ class Application {
     private app: Express
     public port: number
     private routes: RouteType[]
+    private version: string
 
     public constructor(app: Express, port: number) {
         this.app = app
         this.port = port
         this.routes = []
+        this.version = "v1"
+    }
+
+    public setVersion(v: string) {
+        this.version = v
     }
 
     private getRoutes() {
@@ -27,7 +33,7 @@ class Application {
 
     private routerMapping() {
         this.getRoutes().map((item) => {
-            this.app.use(`/v1/${item.path.replace("/", "")}`, item.router)
+            this.app.use(`/${this.version}/${item.path.replace("/", "")}`, item.router)
         })
     }
 
@@ -39,10 +45,11 @@ class Application {
 
 function main() {
     const app = new Application(express(), 8001)
+    // app.setVersion("v2")
     app.addRoute({ path: "/", router: HomeGroup })
     app.addRoute({ path: "users", router: UserGroup })
     app.run()
-    
+
     console.info(`running on port: ${app.port}`)
 }
 
