@@ -1,12 +1,11 @@
-import express, { Express, Router } from "express"
-import { HomeGroup, UserGroup } from "./routes"
+import { Express, Router } from "express"
 
 type RouteType = {
     path: string
     router: Router
 }
 
-class Application {
+export class Application {
     private app: Express
     public port: number
     private routes: RouteType[]
@@ -42,15 +41,3 @@ class Application {
         this.app.listen(this.port)
     }
 }
-
-function main() {
-    const app = new Application(express(), 8001)
-    // app.setVersion("v2")
-    app.addRoute({ path: "/", router: HomeGroup })
-    app.addRoute({ path: "users", router: UserGroup })
-    app.run()
-
-    console.info(`running on port: ${app.port}`)
-}
-
-main()
