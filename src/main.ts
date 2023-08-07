@@ -9,7 +9,7 @@ function main() {
     app.addRoute({ path: "users", router: UserGroup })
     app.run()
 
-    console.info(`running on port: ${app.port}`)
+    console.info(`running on port: ${app.getPort()}`)
 }
 
 main()

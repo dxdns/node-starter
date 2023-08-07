@@ -7,7 +7,7 @@ type RouteType = {
 
 export class Application {
     private app: Express
-    public port: number
+    private port: number
     private routes: RouteType[]
     private version: string
 
@@ -16,6 +16,10 @@ export class Application {
         this.port = port
         this.routes = []
         this.version = "v1"
+    }
+
+    public getPort() {
+        return this.port
     }
 
     public setVersion(v: string) {
@@ -38,6 +42,6 @@ export class Application {
 
     public run() {
         this.routerMapping()
-        this.app.listen(this.port)
+        this.app.listen(this.getPort())
     }
 }
