@@ -22,6 +22,10 @@ export class Application {
         return this.port
     }
 
+    private getVersion() {
+        return this.version
+    }
+
     public setVersion(v: string) {
         this.version = v
     }
@@ -36,7 +40,7 @@ export class Application {
 
     private routerMapping() {
         this.getRoutes().map((item) => {
-            this.app.use(`/${this.version}/${item.path.replace("/", "")}`, item.router)
+            this.app.use(`/${this.getVersion()}/${item.path.replace("/", "")}`, item.router)
         })
     }
 
