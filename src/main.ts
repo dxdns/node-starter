@@ -5,7 +5,7 @@ import env from "dotenv"
 
 function main() {
     env.config()
-    const app = new Application(express(), Number(process.env.PORT) || 8001)
+    const app = new Application(express(), Number(process.env.PORT))
     app.addRoute({ path: "/", router: HomeGroup })
     app.addRoute({ path: "users", router: UserGroup })
     app.run()

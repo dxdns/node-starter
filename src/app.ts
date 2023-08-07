@@ -7,19 +7,37 @@ type RouteType = {
 
 export class Application {
     private app: Express
-    private port: number
-    private routes: RouteType[]
-    private version: string
+    private port: number = 8001
+    private routes: RouteType[] = []
+    private version: string = "v1"
 
-    public constructor(app: Express, port: number) {
+    public constructor(app: Express, port?: number) {
         this.app = app
-        this.port = port
-        this.routes = []
-        this.version = "v1"
+        this.setPort(port)
+    }
+
+    private getApp() {
+        return this.app
     }
 
     public getPort() {
         return this.port
+    }
+
+    private setPort(port?: number) {
+        this.port = port || this.port
+    }
+
+    private getRoutes() {
+        return this.routes
+    }
+
+    private setRoutes(route: RouteType[]) {
+        this.routes = route
+    }
+
+    public addRoute(route: RouteType) {
+        this.setRoutes([...this.routes, { ...route }])
     }
 
     private getVersion() {
@@ -30,22 +48,14 @@ export class Application {
         this.version = v
     }
 
-    private getRoutes() {
-        return this.routes
-    }
-
-    public addRoute(route: RouteType) {
-        this.routes = [...this.routes, { ...route }]
-    }
-
     private routerMapping() {
         this.getRoutes().map((item) => {
-            this.app.use(`/${this.getVersion()}/${item.path.replace("/", "")}`, item.router)
+            this.getApp().use(`/${this.getVersion()}/${item.path.replace("/", "")}`, item.router)
         })
     }
 
     public run() {
         this.routerMapping()
-        this.app.listen(this.getPort())
+        this.getApp().listen(this.getPort())
     }
 }
